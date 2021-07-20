@@ -295,3 +295,54 @@ numberArray = getFilledArray<number>(9, 6)
 personArray = getFilledArray<{name: string, age: number}>({name: 'J. Dean', age:24}, 6)
 coordinateArray = getFilledArray<[number, number]>([3,4], 6)
 ```
+
+## Union Types
+TypeScript allows us to be flexible with how specific our types are by combining different types. When we combine types, it is called a union.
+```js
+let ID: string | number;
+ID = 1; //number
+ID = '001'; // or string
+console.log(`The ID is ${ID}.`);
+```
+
+```js
+let arr: (string | number)[]
+arr = [1,'123'] // no error
+```
+When we put type members in a union, TypeScript will only allow us to use the common methods and properties that all members of the union share. 
+```js
+const batteryStatus: boolean | number = false;
+ 
+batteryStatus.toString(); // No TypeScript error
+batteryStatus.toFixed(2); // TypeScript error
+```
+Since batteryStatus can be a boolean or a number, TypeScript will only allow us to call methods that both number and boolean share. They both share .toString(), so we’re good there. But, since only number has a .toFixed() method, TypeScript will complain if we try to call it.
+
+This rule also applies to type objects that we define
+```js
+type Goose = { 
+  isPettable: boolean; 
+  hasFeathers: boolean;
+  canThwartAPicnic: boolean;
+}
+ 
+type Moose = {
+  isPettable: boolean; 
+  hasHoofs: boolean;
+}
+ 
+const pettingZooAnimal: Goose | Moose = { isPettable: true };
+ 
+console.log(pettingZooAnimal.isPettable); // No TypeScript error
+console.log(pettingZooAnimal.hasHoofs); // TypeScript error
+```
+
+We can use literal types with TypeScript unions. Literal type unions are useful when we want to create distinct states within a program.
+```js
+type Color = 'green' | 'yellow' | 'red';
+ 
+function changeLight(color: Color) {
+  // ...
+}
+```
+
