@@ -181,3 +181,117 @@ function smush(firstString, ...otherStrings: string[]) {
 smush('a','h','h','H','H','H','!','!'); // Returns: 'ahhHHH!!'
 smush(1,2,3) // Returns error
 ```
+
+## Custom Types
+
+### Enums
+We use enums when we’d like to enumerate all the possible values that a variable could have.
+```js
+enum Direction {
+  North,
+  South,
+  East,
+  West
+}
+let whichWayToArcticOcean: Direction;
+whichWayToArcticOcean = Direction.North; // No type error.
+whichWayToArcticOcean = Direction.Southeast; // Type error: Southeast is not a valid value for the Direction enum.
+whichWayToArcticOcean = West; // Wrong syntax, we must use Direction.West instead. 
+```
+
+TypeScript also allows us to use enums based on strings, referred to as string enums. They are defined very similarly:
+```js
+enum DirectionNumber { North, South, East, West }
+enum DirectionString { North = 'NORTH', South = 'SOUTH', East = 'EAST', West = 'WEST' }
+```
+
+### Object Types
+Here’s a type annotation for an object meant to represent a person:
+```js
+let aPerson: {name: string, age: number};
+aPerson = {name: 'Aisle Nevertell', age: "wouldn't you like to know"}; // Type error: age property has the wrong type.
+aPerson = {name: 'Kushim', yearsOld: 5000}; // Type error: no age property. 
+aPerson = {name: 'User McCodecad', age: 22}; // Valid code. 
+```
+
+TypeScript places no restrictions on the types of an object’s properties. They can be enums, arrays, and even other object types
+```js
+let aCompany: {
+  companyName: string, 
+  boss: {name: string, age: number}, 
+  employees: {name: string, age: number}[], 
+  employeeOfTheMonth: {name: string, age: number},  
+  moneyEarned: number
+};
+```
+
+One great way to customize the types in our programs is to use type aliases.
+These are alternative type names that we choose for convenience. We use the format type <alias name> = <type>
+```js
+type MyString = string;
+let myVar: MyString = 'Hi'; // Valid code.
+```
+```js
+type Person = { name: string, age: number };
+let aCompany: {
+  companyName: string, 
+  boss: Person, 
+  employees: Person[], 
+  employeeOfTheMonth: Person,  
+  moneyEarned: number
+};
+``` 
+
+### Function type
+Here’s an example of a function type that is only compatible with functions that take in two string arguments and return a number.
+```js
+type StringsToNumberFunction = (arg0: string, arg1: string) => number;
+```
+This syntax is just like arrow notation for functions, except instead of the return value we put the return type. A variable of type StringsToNumberFunction can be assigned any compatible function:
+```js
+let myFunc: StringsToNumberFunction;
+myFunc = function(firstName: string, lastName: string) {
+  return firstName.length + lastName.length;
+};
+ 
+myFunc = function(whatever: string, blah: string) {
+  return whatever.length - blah.length;
+};
+// Neither of these assignments results in a type error.
+```
+never be tempted to omit the parameter names or the parentheses around the parameters in a function type annotation, even if there is only one parameter. This code will not run!
+```js
+type StringToNumberFunction = (string)=>number; // NO
+type StringToNumberFunction = arg: string=>number; // NO NO NO NO
+```
+
+### Generic Types
+TypeScript’s generics are ways to create collections of types (and typed functions, and more) that share certain formal similarities.
+```js
+type Family<T> = {
+  parents: [T, T], mate: T, children: T[]
+};
+let aStringFamily: Family<string> = {
+  parents: ['stern string', 'nice string'],
+  mate: 'string next door', 
+  children: ['stringy', 'stringo', 'stringina', 'stringolio']
+}; 
+```
+
+### Generic Function 
+We can also use generics to create collections of typed functions.
+```js
+function getFilledArray<T>(value: T, n: number): T[] {
+  return Array(n).fill(value);
+}
+
+let stringArray: string[];
+let numberArray: number[];
+let personArray: {name: string, age: number}[];
+let coordinateArray: [number, number][];
+
+stringArray = getFilledArray<string>('hi', 6)
+numberArray = getFilledArray<number>(9, 6)
+personArray = getFilledArray<{name: string, age: number}>({name: 'J. Dean', age:24}, 6)
+coordinateArray = getFilledArray<[number, number]>([3,4], 6)
+```
