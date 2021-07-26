@@ -3,7 +3,7 @@
     *  4 principle of `oop`
   * `solid` :+1:
     * 5 design principle in oop software development
-  * `recursion` :star:
+  * `recursion` :+1:
     *  what is it
     *  how to use in programming
   * `data structures`
@@ -20,7 +20,7 @@
   * `typescript`
     * basic
     * typescript + react
-  * `tailwind css`
+  * `tailwind css` :star:
 
 
 **Wondering** :confused:
