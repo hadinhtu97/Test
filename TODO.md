@@ -21,6 +21,7 @@
 - `yarn` :+1:
 - `react` :+1:
 - `next` :+1:
+- `mongoose`: :+1:
 - `typescript` :+1:
   - basic
   - typescript + react
