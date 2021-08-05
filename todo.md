@@ -22,16 +22,18 @@
 - `react` :+1:
 - `next` :+1:
 - `mongoose`: :+1:
-- `typescript` :+1:
+- `typescript` :+star:
   - basic
   - typescript + react
-- `tailwind css` :+1:
+- `tailwind css` :star:
 - `ant design` :star:
+- `sql` :star:
+- `inertiajs` :star:
 
 **Wondering** :confused:
 
-- `PHP` ??
-- `Java` ??
-- `C#` ??
+- `PHP` ?
+- `Java` ???
+- `C#` ???
 
 ![img](img/keep-calm-and-study-hard.png)
