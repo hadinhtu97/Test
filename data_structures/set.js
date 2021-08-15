@@ -15,6 +15,7 @@ class Set {
         this.length = 0;
     }
 
+
     has(element) {
         return this.dictionary[element] !== undefined;
     }
