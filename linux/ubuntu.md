@@ -1,6 +1,7 @@
 preload
 indicator_mutiload
-gimp
+gimpt
+tweak
 
 vscode
 postman
@@ -12,3 +13,5 @@ yarn
 php
 
 slack
+
+resolution 1600x900
